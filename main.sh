@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 if [ -z "${AC_REPEATO_WORKSPACE_DIR}" ]
 then
@@ -20,7 +21,7 @@ fi
 
 # Start repeato batch run tests & upload report
 rm -rf repeato-reports
-npm i -g @repeato/cli-testrunner@${AC_REPEATO_CLI_VER}
+npm i -g @repeato/cli-testrunner@"${AC_REPEATO_CLI_VER:-latest}"
 cli-testrunner --licenseKey "${AC_REPEATO_LIC_KEY}" --workspaceDir "${AC_REPEATO_WORKSPACE_DIR}" --batchId "${AC_REPEATO_BATCH_ID}" --outputDir "${AC_OUTPUT_DIR}/repeato-test-results" --logLevel "${AC_REPEATO_LOG_LEVEL}" || exit 1
 zip -r repeato_reports_$AC_REPEATO_BATCH_ID.zip $AC_OUTPUT_DIR/repeato-test-results || exit 1
 cp repeato_reports_$AC_REPEATO_BATCH_ID.zip $AC_OUTPUT_DIR/batch_report_$AC_REPEATO_BATCH_ID.zip
