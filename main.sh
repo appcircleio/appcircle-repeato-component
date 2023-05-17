@@ -22,8 +22,24 @@ fi
 # Start repeato batch run tests & upload report
 rm -rf repeato-reports
 npm i -g @repeato/cli-testrunner@"${AC_REPEATO_CLI_VER:-latest}"
-cli-testrunner --licenseKey "${AC_REPEATO_LIC_KEY}" --workspaceDir "${AC_REPEATO_WORKSPACE_DIR}" --batchId "${AC_REPEATO_BATCH_ID}" --outputDir "${AC_OUTPUT_DIR}/repeato-test-results" --logLevel "${AC_REPEATO_LOG_LEVEL}" || exit 1
-zip -r repeato_reports_$AC_REPEATO_BATCH_ID.zip $AC_OUTPUT_DIR/repeato-test-results || exit 1
+cli-testrunner --licenseKey "${AC_REPEATO_LIC_KEY}" --workspaceDir "${AC_REPEATO_WORKSPACE_DIR}" --batchId "${AC_REPEATO_BATCH_ID}" --outputDir "${AC_OUTPUT_DIR}/repeato-test-results" --logLevel "${AC_REPEATO_LOG_LEVEL}"
+if [ $? -eq 0 ] 
+then 
+  echo "Repeato CLI test runner completed successfully." 
+else 
+  echo "Error in Repeato CLI test runner." >&2 
+  exit 1
+fi
+
+zip -r repeato_reports_$AC_REPEATO_BATCH_ID.zip $AC_OUTPUT_DIR/repeato-test-results
+if [ $? -eq 0 ] 
+then 
+  echo "Repeato report zip compression completed successfully." 
+else 
+  echo "Error in Repeato report zip compression." >&2 
+  exit 1
+fi
+
 cp repeato_reports_$AC_REPEATO_BATCH_ID.zip $AC_OUTPUT_DIR/batch_report_$AC_REPEATO_BATCH_ID.zip
 cp jUnitReport.xml $AC_OUTPUT_DIR/UnitTest.xml
 
