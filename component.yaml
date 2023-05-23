@@ -1,4 +1,4 @@
-platform: Android
+platform: Common
 buildPlatform:
 displayName: Repeato Test Runner
 description: "You can execute Repeato tests before deploying your app build."
