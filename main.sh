@@ -17,18 +17,6 @@ else
     echo "Repeato CLI version: $AC_REPEATO_CLI_VER"
 fi
 
-if [ -z "$AC_REPEATO_APK_PATH" ]; then
-    echo "AC_REPEATO_APK_PATH environment variable is not set."
-fi
-
-if [ -f "$AC_REPEATO_APK_PATH" ]; then
-    echo "Installing APK file: $AC_REPEATO_APK_PATH"
-    adb install "$AC_REPEATO_APK_PATH"
-else
-    echo "File not found: $AC_REPEATO_APK_PATH"
-    exit 1
-fi
-
 # Start repeato batch run tests & upload report
 npm i -g @repeato/cli-testrunner@"${AC_REPEATO_CLI_VER:-latest}"
 

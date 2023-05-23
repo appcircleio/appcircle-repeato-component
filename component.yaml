@@ -27,12 +27,6 @@ inputs:
   title: Repeato License Key
   description: "Provide license key for the tests execution."
   helpText:
-- key: "AC_REPEATO_APK_PATH"
-  defaultValue: "$AC_SIGNED_APK_PATH"
-  isRequired: false
-  title: Repeato APK Path
-  description: "Provide APK path for the test execution with a specific apk."
-  helpText:
 - key: "AC_REPEATO_LOG_LEVEL"
   defaultValue: "INFO"
   isRequired: true
